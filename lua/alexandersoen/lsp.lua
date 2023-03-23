@@ -1,0 +1,77 @@
+local status_ok, mason = pcall(require, "mason")
+if not status_ok then
+    return
+end
+
+mason.setup({
+    ui = {
+        icons = {
+            package_installed = "✓",
+            package_pending = "➜",
+            package_uninstalled = "✗"
+        }
+    }
+})
+
+local config_status_ok, mason_lspconfig = pcall(require, "mason-lspconfig")
+if not config_status_ok then
+    return
+end
+
+mason_lspconfig.setup({
+    ensure_installed = {
+        "lua_ls",
+        "rust_analyzer",
+    }
+})
+
+-- Handlers for LSP startup
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+local function on_attach(client, bufnr)
+    -- Helper for setting key bindings
+    local opts = { buffer = bufnr, noremap = true, silent = true }
+    _ = client  -- Getting rid of warning lol
+
+    vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+
+    -- Key bindings
+    vim.keymap.set("n", "gd", function () vim.lsp.buf.definition() end, opts)
+    vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
+
+    vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
+    vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
+    vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
+end
+
+-- Other settings for LSP
+local lsp_settings = {
+    lua_ls = {
+        Lua = {
+            diagnostics = {
+                -- Get the language server to recognize the `vim` global
+                globals = { "vim" },
+            },
+        },
+    },
+}
+
+-- Configure the LSP
+local lspconfig = require("lspconfig")
+require("mason-lspconfig").setup_handlers({
+    function(server_name)
+
+        -- Just incase there is undefined behaviour with nil settings
+        if lsp_settings[server_name] ~= nil then
+            lspconfig[server_name].setup({
+                on_attach = on_attach,
+                capabilities = capabilities,
+                settings = lsp_settings[server_name],
+            })
+        else
+            lspconfig[server_name].setup({
+                on_attach = on_attach,
+                capabilities = capabilities,
+            })
+        end
+    end,
+})
