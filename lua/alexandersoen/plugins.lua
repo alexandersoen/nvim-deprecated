@@ -53,6 +53,7 @@ packer.startup(function(use)
     use {
         'nvim-treesitter/nvim-treesitter', run = ":TSUpdate"
     }
+    use 'nvim-treesitter/nvim-treesitter-context'
 
     -- Harpoon
     use 'theprimeagen/harpoon'
@@ -75,9 +76,9 @@ packer.startup(function(use)
     use 'goerz/jupytext.vim'
 
     -- Bars and appearance
-    use {
-        'akinsho/bufferline.nvim', tag = "v3.*", requires = 'nvim-tree/nvim-web-devicons'
-    }
+--     use {
+--         'akinsho/bufferline.nvim', tag = "v3.*", requires = 'nvim-tree/nvim-web-devicons'
+--     }
     use {
         'nvim-lualine/lualine.nvim', requires = {
             'kyazdani42/nvim-web-devicons', opt = true

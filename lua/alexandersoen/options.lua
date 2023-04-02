@@ -7,7 +7,7 @@ local options = {
 
     pumheight = 10,             -- pop up menu height
 
-    showtabline = 2,            -- always shows window tabs
+    showtabline = 1,            -- only shows window tabs when tabs exist
     smartcase = true,           -- smart case
     smartindent = true,         -- make indenting smarter
     splitbelow = true,          -- force horizontal splits to be below current window
