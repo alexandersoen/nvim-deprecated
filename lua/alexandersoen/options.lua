@@ -30,7 +30,7 @@ local options = {
     scrolloff = 8,              -- minimum lines above and below when scrolling
     sidescrolloff = 8,          -- minimum lines left and right when scrolling (I think)
 
-    colorcolumn = "80",         --  Verticle line @ row number
+--    colorcolumn = "80",         --  Verticle line @ row number
 
     updatetime = 50,            -- Update time
 }
