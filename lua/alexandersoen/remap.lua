@@ -21,10 +21,11 @@ keymap("n", "<C-k>", "<C-w>k", opts)
 keymap("n", "<C-l>", "<C-w>l", opts)
 
 
+keymap("n", "<leader>pe", ":Ex <cr>", opts)
 -- keymap("n", "<leader>pe", ":30Lex <cr>", opts)
-keymap("n", "<leader>pe", ":Neotree filesystem toggle float <cr>", opts)
-keymap("n", "<leader>pg", ":Neotree git_status toggle float <cr>", opts)
-keymap("n", "<leader>pb", ":Neotree buffers toggle float <cr>", opts)
+-- keymap("n", "<leader>pe", ":Neotree filesystem toggle float <cr>", opts)
+-- keymap("n", "<leader>pg", ":Neotree git_status toggle float <cr>", opts)
+-- keymap("n", "<leader>pb", ":Neotree buffers toggle float <cr>", opts)
 
 
 -- keymap("n", "<leader>gs", vim.cmd.Git)
