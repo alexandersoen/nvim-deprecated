@@ -25,7 +25,7 @@ mason_lspconfig.setup({
     }
 })
 
--- Handlers for LSP startup
+Handlers for LSP startup
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 local function on_attach(client, bufnr)
     -- Helper for setting key bindings
@@ -60,26 +60,36 @@ local lsp_settings = {
                 globals = { "vim" },
             },
         },
-    }
+    },
+    hls = {
+        rootMarkers = {"./git"},
+    },
 }
 
 -- Configure the LSP
 local lspconfig = require("lspconfig")
 require("mason-lspconfig").setup_handlers({
     function(server_name)
-
         -- Just incase there is undefined behaviour with nil settings
         if lsp_settings[server_name] ~= nil then
             lspconfig[server_name].setup({
                 on_attach = on_attach,
                 capabilities = capabilities,
+                root_dir = vim.loop.cwd,
                 settings = lsp_settings[server_name],
             })
         else
             lspconfig[server_name].setup({
                 on_attach = on_attach,
+                root_dir = vim.loop.cwd,
                 capabilities = capabilities,
             })
         end
+
+        -- Loading this in manually (doesn't seem to work with Mason install)
+        lspconfig["hls"].setup({
+            on_attach = on_attach,
+            capabilities = capabilities,
+        })
     end,
 })

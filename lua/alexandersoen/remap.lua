@@ -12,7 +12,8 @@ vim.g.mapleader = " "
 --      visual_block_mode = "x"
 --      term_mode = "t"
 --      command_mode = "c"
-
+keymap("i", "<Char-0x07F>", "<BS>")
+keymap("n", "<Char-0x07F>", "<BS>")
 -- Normal --
 -- Better window navigation
 keymap("n", "<C-h>", "<C-w>h", opts)

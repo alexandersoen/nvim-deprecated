@@ -9,6 +9,17 @@ local sources = {
         extra_args = { "--line-length=79", "--preview" }
     }),
     null_ls.builtins.formatting.isort,
+
+    -- lua
+    null_ls.builtins.formatting.lua_format,
 }
 
-null_ls.setup({ sources = sources })
+local on_attach = function(client)
+    vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.format()")
+end
+
+null_ls.setup({
+    debug = true,
+    sources = sources,
+    on_attach = on_attach,
+})
